@@ -589,9 +589,11 @@ to `project.clj`
 
 ### Get a ClojureScript REPL
 
+```
 sudo apt-get install phantomjs
+```
 
-Add [austin](https://github.com/cemerick/austin) to your ~/.lein/profiles.clj like so:
+Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
 
 ```
 {:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
