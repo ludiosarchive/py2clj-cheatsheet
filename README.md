@@ -104,6 +104,20 @@ list(reversed([1, 2, 3]))
 
 
 
+### Assert something
+
+```python
+assert 1 == 1, "1 is not equal to 1"
+assert 1 == 2, "1 is not equal to 2"
+```
+
+```clojure
+(assert (= 1 1) "1 is not equal to 1")
+(assert (= 1 2) "1 is not equal to 2")
+```
+
+
+
 ### Make sure a directory exists for a file, creating it if it doesn't.
 
 ```python
@@ -357,6 +371,31 @@ for item in s:
 
 
 
+### Make a string with 80 asterisks
+
+```python
+"*"*80
+```
+
+```clojure
+(require '[clojure.string :as str])
+(str/join "" (repeat 80 "*"))
+```
+
+
+
+### Make a list (Python) or vector (Clojure) with 10 copies of a string
+
+```python
+["hi"] * 10
+```
+
+```clojure
+(vec (repeat 10 "hi"))
+```
+
+
+
 ### Replace all instances of X in string Y
 
 ```python
@@ -451,6 +490,9 @@ def optional_arg(a, b=10):
 	Documentation
 	"""
 	return a + b
+
+optional_arg(100)
+optional_arg(100, 1)
 ```
 
 ```clojure
@@ -458,6 +500,9 @@ def optional_arg(a, b=10):
   "Documentation"
   ([a] (optional-arg a 10))
   ([a b] (+ a b)))
+
+(optional-arg 100)
+(optional-arg 100 1)
 ```
 
 Do *not* do this, as the function does not complain when you pass too many arguments:
@@ -467,6 +512,10 @@ Do *not* do this, as the function does not complain when you pass too many argum
   "Documentation"
   [a & [b]]
   (+ a (or b 10)))
+
+(optional-arg 100)
+(optional-arg 100 1)
+(optional-arg 100 1 2)
 ```
 
 
