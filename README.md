@@ -14,14 +14,14 @@ If this is missing some common task, please file an issue.
 
 ### Getting a REPL started
 
-Python:
+#### Python
 
 On Linux or OS X, run "python" in a terminal.
 
 On Windows, install Python 2.x; start cmd; run "C:\Python27\python"
 
 
-Clojure:
+#### Clojure
 
 On all platforms, install [leiningen](http://leiningen.org/)
 ```
@@ -83,7 +83,7 @@ pprint.pprint(list(range(10) for n in range(10)))
 
 or for better pretty-printing in some cases:
 
-```
+```clojure
 ; with [fipp "0.4.1"] in :dependencies in your project.clj
 
 (require '[fipp.edn :refer (pprint) :rename {pprint fipp}])
@@ -383,7 +383,7 @@ for item in s:
 
 
 
-### Join a list (Python) or vector (Clojure) with ", "
+### Join a list (Python) or vector (Clojure) with `", "`
 
 ```python
 ", ".join(["a", "bee", "see"])
@@ -550,7 +550,7 @@ subprocess.check_output(["ls", "-l"])
 
 
 
-## Other Clojure/Leiningen tips:
+## Other Clojure/Leiningen tips
 
 
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time
@@ -578,9 +578,12 @@ to `project.clj`
 ### Make `lein repl` not slow when the project is on a network drive
 
 Add
+
 ```
-:repl-options {:history-file nil}```
- to `project.clj`
+:repl-options {:history-file nil}
+```
+
+to `project.clj`
 
 
 
