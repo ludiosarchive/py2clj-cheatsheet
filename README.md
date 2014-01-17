@@ -1,9 +1,11 @@
-Getting a REPL started:
+## Getting a REPL started:
 
 Python:
 
 On Linux or OS X, run "python" in a terminal.
+
 On Windows, install Python 2.x; start cmd; run "C:\Python27\python"
+
 
 Clojure:
 
@@ -16,7 +18,7 @@ lein repl
 
 
 
-Print something with a newline:
+## Print something with a newline:
 
 ```python
 print "success", 111, "another string"
@@ -337,7 +339,7 @@ for item in s:
 ```
 
 
-Log a message:
+<!-- TODO Log a message: -->
 
 
 
@@ -539,7 +541,8 @@ Other Clojure/Leiningen tips:
 
 Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time:
 
-Add ```
+Add
+```
 :jvm-opts ^:replace ["-server"]
 ```
 
@@ -549,7 +552,8 @@ to `project.clj`
 
 Make `lein repl`, `lein run`, and other project commands run at full JVM performance, and give JVM 2GB of heap:
 
-Add ```
+Add
+```
 :jvm-opts ^:replace ["-server" "-Xmx2G"]
 ```
 
@@ -559,7 +563,8 @@ to `project.clj`
 
 Make `lein repl` not slow when the project is on a network drive:
 
-Add ```
+Add
+```
 :repl-options {:history-file nil}```
  to `project.clj`
 
@@ -569,7 +574,7 @@ Get a ClojureScript REPL:
 
 sudo apt-get install phantomjs
 
-Add (austin)[https://github.com/cemerick/austin] to your ~/.lein/profiles.clj like so:
+Add [austin](https://github.com/cemerick/austin) to your ~/.lein/profiles.clj like so:
 
 ```
 {:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
