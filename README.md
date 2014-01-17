@@ -1,9 +1,12 @@
 # Python/Clojure cheatsheet
 
-This document is intended for Python programmers who want to know how to do various common things in Clojure.
+This document is intended for Python programmers who want to know
+how to do various common things in Clojure.
 
 Almost all of the examples below are intended to be pasted in a Python REPL or a Clojure REPL.
 The Python version always precedes the Clojure version.
+
+If this is missing some common task, please file an issue.
 
 
 ## Tasks
