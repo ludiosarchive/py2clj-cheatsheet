@@ -1,4 +1,15 @@
-### Getting a REPL started:
+# Python/Clojure cheatsheet
+
+This document is intended for Python programmers who want to know how to do various common things in Clojure.
+
+Almost all of the examples below are intended to be pasted in a Python REPL or a Clojure REPL.
+The Python version always precedes the Clojure version.
+
+
+## Tasks
+
+
+### Getting a REPL started
 
 Python:
 
@@ -18,7 +29,7 @@ lein repl
 
 
 
-### Print something with a newline:
+### Print something with a newline
 
 ```python
 print "success", 111, "another string"
@@ -30,7 +41,7 @@ print "success", 111, "another string"
 
 
 
-Print something without a newline:
+### Print something without a newline
 
 ```python
 import sys
@@ -43,7 +54,7 @@ sys.stdout.write("hello world")
 
 
 
-Print a representation of an object:
+### Print a representation of an object
 
 ```python
 print repr(["hello world", 3])
@@ -55,7 +66,7 @@ print repr(["hello world", 3])
 
 
 
-Pretty-print an object:
+### Pretty-print an object
 
 ```python
 import pprint
@@ -78,7 +89,7 @@ or for better pretty-printing in some cases:
 
 
 
-Get a reversed list (Python) or vector (Clojure):
+### Get a reversed list (Python) or vector (Clojure)
 
 ```python
 list(reversed([1, 2, 3]))
@@ -90,7 +101,7 @@ list(reversed([1, 2, 3]))
 
 
 
-Make sure a directory exists for a file, creating it if it doesn't.
+### Make sure a directory exists for a file, creating it if it doesn't.
 
 ```python
 import os
@@ -107,7 +118,7 @@ except OSError:
 
 
 
-Get the response body for an HTTP request as a string, using language/platform-native facilities.
+### Get the response body for an HTTP request as a string, using language/platform-native facilities.
 
 ```python
 import urllib2
@@ -121,7 +132,7 @@ urllib2.urlopen("http://www.google.com/").read()
 
 
 
-Print out a file, along with line numbers.
+### Print out a file, along with line numbers.
 
 ```python
 with open("/etc/passwd") as f:
@@ -138,7 +149,7 @@ with open("/etc/passwd") as f:
 
 
 
-Write a new file:
+### Write a new file
 
 ```python
 with open("deleteme-1", "wb") as f:
@@ -151,7 +162,7 @@ with open("deleteme-1", "wb") as f:
 
 
 
-Append a line to a file:
+### Append a line to a file
 
 ```python
 with open("deleteme-2", "ab") as f:
@@ -166,7 +177,7 @@ with open("deleteme-2", "ab") as f:
 
 
 
-Load the lines of a file into a set:
+### Load the lines of a file into a set
 
 ```python
 with open("/etc/passwd") as f:
@@ -181,7 +192,7 @@ with open("/etc/passwd") as f:
 
 
 
-Parse some JSON in a string:
+### Parse some JSON in a string
 
 ```python
 import json
@@ -197,7 +208,7 @@ json.loads('[{"a": 10.1, "b": [true, false, null]}, 1]')
 
 
 
-Encode some data to JSON and write it to a file:
+### Encode some data to JSON and write it to a file
 
 ```python
 import json
@@ -236,7 +247,7 @@ https://github.com/michalmarczyk/clj-lazy-json
 
 
 
-Parse some JSON in a file:
+### Parse some JSON in a file
 
 ```python
 import json
@@ -268,7 +279,7 @@ with cheshire:
 
 
 
-Write some EDN to a file:
+### Write some EDN to a file
 
 ```python
 # https://github.com/swaroopch/edn_format
@@ -288,7 +299,7 @@ with open("/tmp/edn", "wb") as f:
 
 
 
-Parse some EDN in a file and get a keyword key:
+### Parse some EDN in a file and get a keyword key
 
 ```python
 # https://github.com/swaroopch/edn_format
@@ -313,7 +324,7 @@ with open("/tmp/edn", "rb") as f:
 
 
 
-Read lines from stdin, write out unique lines to stdout:
+### Read lines from stdin, write out unique lines to stdout
 
 ```python
 #!/usr/bin/python
@@ -343,7 +354,7 @@ for item in s:
 
 
 
-Replace all instances of X in string Y:
+### Replace all instances of X in string Y
 
 ```python
 "hello".replace("l", "x")
@@ -356,7 +367,7 @@ Replace all instances of X in string Y:
 
 
 
-Replace first instance of X in string Y:
+### Replace first instance of X in string Y
 
 ```python
 "hello".replace("l", "x", 1)
@@ -369,7 +380,7 @@ Replace first instance of X in string Y:
 
 
 
-Join a list (Python) or vector (Clojure) with ", ":
+### Join a list (Python) or vector (Clojure) with ", "
 
 ```python
 ", ".join(["a", "bee", "see"])
@@ -381,7 +392,7 @@ Join a list (Python) or vector (Clojure) with ", ":
 ```
 
 
-Lowercase all strings in a list (Python) or vector (Clojure):
+### Lowercase all strings in a list (Python) or vector (Clojure)
 
 ```python
 list(s.lower() for s in ["Mixed", "CASE"])
@@ -394,7 +405,7 @@ list(s.lower() for s in ["Mixed", "CASE"])
 
 
 
-Remove whitespace from both ends of a string:
+### Remove whitespace from both ends of a string
 
 ```python
 " hello  \r\n ".strip()
@@ -407,7 +418,7 @@ Remove whitespace from both ends of a string:
 
 
 
-Split a string on space:
+### Split a string on space
 
 ```python
 "hello  world test  ".split(" ")
@@ -429,7 +440,7 @@ Split a string on space:
 
 
 
-Define and call a function with an optional argument:
+### Define and call a function with an optional argument
 
 ```python
 def optional_arg(a, b=10):
@@ -456,7 +467,7 @@ Do *not* do this, as the function does not complain when you pass too many argum
 ```
 
 
-Change some values in a map:
+### Change some values in a map
 
 ```python
 record = {"name": {"first": "Kim", "last": "Schmitz"}, "age": 31, "secret": "delete-me"}
@@ -478,7 +489,7 @@ print new_record
 
 
 
-Get the difference of two sets:
+### Get the difference of two sets
 
 ```python
 set([1, 2, 3, 4]) - set([2, 3, 10])
@@ -491,7 +502,7 @@ set([1, 2, 3, 4]) - set([2, 3, 10])
 
 
 
-Get the intersection of two sets:
+### Get the intersection of two sets
 
 ```python
 set([1, 2, 3, 4]) & set([2, 3, 10])
@@ -504,7 +515,7 @@ set([1, 2, 3, 4]) & set([2, 3, 10])
 
 
 
-Get the union of two sets:
+### Get the union of two sets
 
 ```python
 set([1, 2, 3, 4]) | set([2, 3, 10])
@@ -517,7 +528,7 @@ set([1, 2, 3, 4]) | set([2, 3, 10])
 
 
 
-Run a process and get the output:
+### Run a process and get the output
 
 ```python
 import subprocess
@@ -536,10 +547,10 @@ subprocess.check_output(["ls", "-l"])
 
 
 
-Other Clojure/Leiningen tips:
+## Other Clojure/Leiningen tips:
 
 
-Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time:
+### Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time
 
 Add
 ```
@@ -550,7 +561,7 @@ to `project.clj`
 
 
 
-Make `lein repl`, `lein run`, and other project commands run at full JVM performance, and give JVM 2GB of heap:
+### Make `lein repl`, `lein run`, and other project commands run at full JVM performance, and give JVM 2GB of heap
 
 Add
 ```
@@ -561,7 +572,7 @@ to `project.clj`
 
 
 
-Make `lein repl` not slow when the project is on a network drive:
+### Make `lein repl` not slow when the project is on a network drive
 
 Add
 ```
@@ -570,7 +581,7 @@ Add
 
 
 
-Get a ClojureScript REPL:
+### Get a ClojureScript REPL
 
 sudo apt-get install phantomjs
 
@@ -582,5 +593,4 @@ Add [austin](https://github.com/cemerick/austin) to your ~/.lein/profiles.clj li
 
 lein repl
 (cemerick.austin.repls/exec)
-
 
