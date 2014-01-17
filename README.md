@@ -1,4 +1,4 @@
-## Getting a REPL started:
+### Getting a REPL started:
 
 Python:
 
@@ -18,7 +18,7 @@ lein repl
 
 
 
-## Print something with a newline:
+### Print something with a newline:
 
 ```python
 print "success", 111, "another string"
