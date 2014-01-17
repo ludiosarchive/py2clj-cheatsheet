@@ -599,6 +599,8 @@ Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` 
 {:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
 ```
 
-lein repl
-(cemerick.austin.repls/exec)
+Start a Clojure REPL as usual with `lein repl`, then run
 
+```
+(cemerick.austin.repls/exec)
+```
