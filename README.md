@@ -81,7 +81,7 @@ pprint.pprint(list(range(10) for n in range(10)))
 (pprint (for [_ (range 10)] (range 10)))
 ```
 
-or for better pretty-printing in some cases:
+or using [fipp](https://github.com/brandonbloom/fipp) for better pretty-printing in some cases:
 
 ```clojure
 ; with [fipp "0.4.1"] in :dependencies in your project.clj
@@ -219,7 +219,7 @@ with open("/tmp/json", "wb") as f:
 	json.dump([{"a": 10.1, "b</script>": [True, False, None]}, 1], f)
 ```
 
-with data.json:
+with [data.json](https://github.com/clojure/data.json):
 
 ```clojure
 ; with [org.clojure/data.json "0.2.4"] in :dependencies in your project.clj
@@ -231,7 +231,7 @@ with data.json:
 ; unlike Python, escapes forward slash by default; also emits no whitespace
 ```
 
-with cheshire:
+with [cheshire](https://github.com/dakrone/cheshire):
 
 ```clojure
 ; with [cheshire "5.3.1"] in :dependencies in your project.clj
