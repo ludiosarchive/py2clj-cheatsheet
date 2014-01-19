@@ -396,7 +396,7 @@ for item in s:
 
 
 
-### Replace all instances of X in string Y
+### Replace all instances of `"l"` in string `"hello"`
 
 ```python
 "hello".replace("l", "x")
@@ -409,7 +409,7 @@ for item in s:
 
 
 
-### Replace first instance of X in string Y
+### Replace first instance of `"l"` in string `"hello"`
 
 ```python
 "hello".replace("l", "x", 1)
