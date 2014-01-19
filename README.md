@@ -580,6 +580,20 @@ set([1, 2, 3, 4]) | set([2, 3, 10])
 
 
 
+### Get milliseconds since epoch
+
+```python
+time.time() * 1000
+# returns a float
+```
+
+```clojure
+(System/currentTimeMillis)
+; returns a Long
+```
+
+
+
 ### Run a process and get the output
 
 ```python
@@ -636,7 +650,7 @@ to `project.clj`
 
 
 
-### Get a ClojureScript REPL
+### Get a ClojureScript REPL managed by austin
 
 ```
 sudo apt-get install phantomjs
@@ -653,3 +667,17 @@ Start a Clojure REPL as usual with `lein repl`, then run
 ```
 (cemerick.austin.repls/exec)
 ```
+
+
+
+### Get a ClojureScript REPL powered by your browser
+
+Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
+
+```
+{:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
+```
+
+Start a Clojure REPL as usual with `lein repl`, then run
+
+(cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/repl-env))
