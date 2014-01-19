@@ -680,4 +680,6 @@ Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` 
 
 Start a Clojure REPL as usual with `lein repl`, then run
 
+```
 (cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/repl-env))
+```
