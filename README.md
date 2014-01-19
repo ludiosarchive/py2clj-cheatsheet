@@ -619,7 +619,7 @@ subprocess.check_output(["ls", "-l"])
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time
 
 Add
-```
+```clojure
 :jvm-opts ^:replace ["-server"]
 ```
 
@@ -630,7 +630,7 @@ to `project.clj`
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance, and give JVM 2GB of heap
 
 Add
-```
+```clojure
 :jvm-opts ^:replace ["-server" "-Xmx2G"]
 ```
 
@@ -642,7 +642,7 @@ to `project.clj`
 
 Add
 
-```
+```clojure
 :repl-options {:history-file nil}
 ```
 
@@ -658,13 +658,13 @@ sudo apt-get install phantomjs
 
 Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
 
-```
+```clojure
 {:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
 ```
 
 Start a Clojure REPL as usual with `lein repl`, then run
 
-```
+```clojure
 (cemerick.austin.repls/exec)
 ```
 
@@ -674,12 +674,12 @@ Start a Clojure REPL as usual with `lein repl`, then run
 
 Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
 
-```
+```clojure
 {:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
 ```
 
 Start a Clojure REPL as usual with `lein repl`, then run
 
-```
+```clojure
 (cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/repl-env))
 ```
