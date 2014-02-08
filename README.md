@@ -123,9 +123,9 @@ assert 1 == 2, "1 is not equal to 2"
 ```python
 import os
 try:
-	os.makedirs(os.path.dirname("foo2/bar/whatever.txt"))
+  os.makedirs(os.path.dirname("foo2/bar/whatever.txt"))
 except OSError:
-	pass
+  pass
 ```
 
 ```clojure
@@ -153,8 +153,8 @@ urllib2.urlopen("http://www.google.com/").read()
 
 ```python
 with open("/etc/passwd") as f:
-	for n, line in enumerate(f):
-		print n, line.rstrip("\r\n")
+  for n, line in enumerate(f):
+    print n, line.rstrip("\r\n")
 ```
 
 ```clojure
@@ -170,7 +170,7 @@ with open("/etc/passwd") as f:
 
 ```python
 with open("deleteme-1", "wb") as f:
-	f.write("contents")
+  f.write("contents")
 ```
 
 ```clojure
@@ -183,7 +183,7 @@ with open("deleteme-1", "wb") as f:
 
 ```python
 with open("deleteme-2", "ab") as f:
-	f.write("another line\n")
+  f.write("another line\n")
 ```
 
 ```clojure
@@ -198,7 +198,7 @@ with open("deleteme-2", "ab") as f:
 
 ```python
 with open("/etc/passwd") as f:
-	set(line.rstrip("\r\n") for line in f)
+  set(line.rstrip("\r\n") for line in f)
 ```
 
 ```clojure
@@ -230,7 +230,7 @@ json.loads('[{"a": 10.1, "b": [true, false, null]}, 1]')
 ```python
 import json
 with open("/tmp/json", "wb") as f:
-	json.dump([{"a": 10.1, "b</script>": [True, False, None]}, 1], f)
+  json.dump([{"a": 10.1, "b</script>": [True, False, None]}, 1], f)
 ```
 
 with [data.json](https://github.com/clojure/data.json):
@@ -269,7 +269,7 @@ https://github.com/michalmarczyk/clj-lazy-json
 ```python
 import json
 with open("/tmp/json", "rb") as f:
-	json.load(f)
+  json.load(f)
 ```
 
 with data.json:
@@ -351,10 +351,10 @@ import sys
 s = set()
 
 for line in sys.stdin:
-        s.add(line.rstrip("\r\n"))
+  s.add(line.rstrip("\r\n"))
 
 for item in s:
-        print item
+  print item
 ```
 
 ```clojure
@@ -486,10 +486,10 @@ list(s.lower() for s in ["Mixed", "CASE"])
 
 ```python
 def optional_arg(a, b=10):
-	"""
-	Documentation
-	"""
-	return a + b
+  """
+  Documentation
+  """
+  return a + b
 
 optional_arg(100)
 optional_arg(100, 1)
@@ -610,6 +610,78 @@ subprocess.check_output(["ls", "-l"])
 ; nonexistent binary -> IOException thrown
 ; non-zero exit -> non-zero :exit value in return map
 ```
+
+
+
+### Get a SHA1 digest or hex digest for a string
+
+```python
+import hashlib
+
+hashlib.sha1("hello world").digest()
+hashlib.sha1("hello world").hexdigest()
+
+hashlib.sha1(u"hello world \ucccc".encode("utf-8")).digest()
+hashlib.sha1(u"hello world \ucccc".encode("utf-8")).hexdigest()
+```
+
+```clojure
+(import '[java.security MessageDigest])
+
+(defn hexify [digest]
+  (apply str (map #(format "%02x" (bit-and % 0xff)) digest)))
+
+(defn sha1digest [b]
+  (.digest (java.security.MessageDigest/getInstance "sha1") b))
+
+(sha1digest (.getBytes "hello world" "UTF-8"))
+(hexify (sha1digest (.getBytes "hello world" "UTF-8")))
+
+(sha1digest (.getBytes "hello world \ucccc" "UTF-8"))
+(hexify (sha1digest (.getBytes "hello world \ucccc" "UTF-8")))
+```
+
+
+
+### Get a SHA1 hex digest for a large file
+
+```python
+import hashlib
+
+def sha1_for_file(f, block_size=2**20):
+  sha1 = hashlib.sha1()
+  while True:
+    data = f.read(block_size)
+    if not data:
+      break
+    sha1.update(data)
+  return sha1
+
+with open("/etc/passwd", "rb") as f:
+  print sha1_for_file(f).hexdigest()
+```
+
+```clojure
+(import '[java.security MessageDigest])
+(import '[java.io FileInputStream])
+
+(defn hexify [digest]
+  (apply str (map #(format "%02x" (bit-and % 0xff)) digest)))
+
+(defn sha1-for-file [file]
+  (let [arr (byte-array 1048576)
+        digest (java.security.MessageDigest/getInstance "sha1")
+        fis (FileInputStream. file)]
+    (loop []
+      (let [bytes-read (.read fis arr 0 1048576)]
+        (when (not= bytes-read -1)
+          (.update digest arr 0 bytes-read)
+          (recur))))
+    digest))
+
+(hexify (.digest (sha1-for-file "/etc/passwd")))
+```
+
 
 
 
