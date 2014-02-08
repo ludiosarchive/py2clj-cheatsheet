@@ -356,7 +356,6 @@ The Python version requires https://github.com/swaroopch/edn_format.
 
 ```python
 from __future__ import print_function
-
 import edn_format
 
 with open("/tmp/edn", "r") as f:
