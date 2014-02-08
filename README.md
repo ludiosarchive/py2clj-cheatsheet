@@ -203,8 +203,6 @@ with codecs.open("deleteme-2", "ab", encoding="utf-8") as f:
   f.write(u"another line \ucccc\n")
 ```
 
-Note that we use mode `"ab"` instead of `"a"` to avoid having Python replace our `\n`s with `\r\n`s on Windows.
-
 ```clojure
 (require '[clojure.java.io :refer [writer]])
 (with-open [wrtr (writer "deleteme-2" :encoding "UTF-8" :append true)]
