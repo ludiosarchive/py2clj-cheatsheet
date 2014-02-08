@@ -649,6 +649,7 @@ hashlib.sha1(u"hello world \ucccc".encode("utf-8")).hexdigest()
 import hashlib
 
 def sha1_for_file(f, block_size=2**20):
+  assert block_size >= 1, "block_size must be >= 1, was %r" % (block_size,)
   sha1 = hashlib.sha1()
   while True:
     data = f.read(block_size)
@@ -662,24 +663,28 @@ with open("/etc/passwd", "rb") as f:
 ```
 
 ```clojure
+(require '[clojure.java.io :refer [as-file input-stream]])
 (import '[java.security MessageDigest])
-(import '[java.io FileInputStream])
 
 (defn hexify [digest]
   (apply str (map #(format "%02x" (bit-and % 0xff)) digest)))
 
-(defn sha1-for-file [file]
-  (let [arr (byte-array 1048576)
-        digest (java.security.MessageDigest/getInstance "sha1")
-        fis (FileInputStream. file)]
-    (loop []
-      (let [bytes-read (.read fis arr 0 1048576)]
-        (when (not= bytes-read -1)
-          (.update digest arr 0 bytes-read)
-          (recur))))
-    digest))
+(defn sha1-for-file
+  ([file]
+    (sha1-for-file file 1048576))
+  ([file block-size]
+    (assert (pos? block-size) (str "block-size must be >= 1, was " block-size))
+    (with-open [fis (input-stream file)]
+      (let [arr (byte-array block-size)
+            digest (java.security.MessageDigest/getInstance "sha1")]
+        (loop []
+          (let [bytes-read (.read fis arr 0 block-size)]
+            (when (not= bytes-read -1)
+              (.update digest arr 0 bytes-read)
+              (recur))))
+        digest))))
 
-(hexify (.digest (sha1-for-file "/etc/passwd")))
+(hexify (.digest (sha1-for-file (as-file "/etc/passwd"))))
 ```
 
 
