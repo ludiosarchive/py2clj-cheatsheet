@@ -646,6 +646,9 @@ hashlib.sha1(u"hello world \ucccc".encode("utf-8")).hexdigest()
 ### Get a SHA1 hex digest for a large file
 
 ```python
+# Traditional implementation with string objects
+
+from __future__ import print_function
 import hashlib
 
 def sha1_for_file(f, block_size=2**20):
@@ -659,7 +662,31 @@ def sha1_for_file(f, block_size=2**20):
   return sha1
 
 with open("/etc/passwd", "rb") as f:
-  print sha1_for_file(f).hexdigest()
+  print(sha1_for_file(f).hexdigest())
+```
+
+```python
+# bytearray implementation that avoids creating string objects, to avoid GC pressure on PyPy/Jython
+
+from __future__ import print_function
+import hashlib
+
+def sha1_for_file(f, block_size=2**20):
+  assert block_size >= 1, "block_size must be >= 1, was %r" % (block_size,)
+  sha1 = hashlib.sha1()
+  arr = bytearray(block_size)
+  while True:
+    num_bytes_read = f.readinto(arr)
+    if not num_bytes_read:
+      break
+    if num_bytes_read < block_size:
+      sha1.update(arr[:num_bytes_read])
+    else:
+      sha1.update(arr)
+  return sha1
+
+with open("/etc/passwd", "rb") as f:
+  print(sha1_for_file(f).hexdigest())
 ```
 
 ```clojure
