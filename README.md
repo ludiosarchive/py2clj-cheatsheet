@@ -762,35 +762,31 @@ with open("/etc/passwd", "rb") as f:
 
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time
 
-Add
+Add this to your `project.clj`:
+
 ```clojure
 :jvm-opts ^:replace ["-server"]
 ```
-
-to `project.clj`
 
 
 
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance, and give JVM 2GB of heap
 
-Add
+Add this to your `project.clj`:
+
 ```clojure
 :jvm-opts ^:replace ["-server" "-Xmx2G"]
 ```
-
-to `project.clj`
 
 
 
 ### Make `lein repl` not slow when the project is on a network drive
 
-Add
+Add this to your `project.clj`:
 
 ```clojure
 :repl-options {:history-file nil}
 ```
-
-to `project.clj`
 
 
 
