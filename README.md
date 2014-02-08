@@ -678,9 +678,9 @@ with open("/etc/passwd", "rb") as f:
       (let [arr (byte-array block-size)
             digest (java.security.MessageDigest/getInstance "sha1")]
         (loop []
-          (let [bytes-read (.read fis arr 0 block-size)]
-            (when (not= bytes-read -1)
-              (.update digest arr 0 bytes-read)
+          (let [num-bytes-read (.read fis arr 0 block-size)]
+            (when (not= num-bytes-read -1)
+              (.update digest arr 0 num-bytes-read)
               (recur))))
         digest))))
 
