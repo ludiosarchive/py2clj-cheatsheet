@@ -6,6 +6,9 @@ how to do various common things in Clojure.
 Almost all of the examples below are intended to be pasted in a Python REPL or a Clojure REPL.
 The Python version always precedes the Clojure version.
 
+The Python code here is designed to work in both Python 2.7 and Python 3.3+.
+The Clojure code here was tested with Clojure 1.5.1.
+
 If this is missing some common task, please file an issue.
 
 
@@ -18,7 +21,7 @@ If this is missing some common task, please file an issue.
 
 On Linux or OS X, run "python" in a terminal.
 
-On Windows, install Python 2.x; start cmd; run "C:\Python27\python"
+On Windows, install Python 2.7 or 3.3; start cmd; run "C:\Python27\python" or "C:\Python33\python"
 
 
 #### Clojure
@@ -35,7 +38,9 @@ lein repl
 ### Print something with a newline
 
 ```python
-print "success", 111, "another string"
+from __future__ import print_function
+
+print("success", 111, "another string")
 ```
 
 ```clojure
@@ -60,7 +65,9 @@ sys.stdout.write("hello world")
 ### Print a representation of an object
 
 ```python
-print repr(["hello world", 3])
+from __future__ import print_function
+
+print(repr(["hello world", 3]))
 ```
 
 ```clojure
@@ -73,7 +80,7 @@ print repr(["hello world", 3])
 
 ```python
 import pprint
-pprint.pprint(list(range(10) for n in range(10)))
+pprint.pprint(list(list(range(10)) for n in range(10)))
 ```
 
 ```clojure
@@ -138,7 +145,11 @@ except OSError:
 ### Get the response body for an HTTP request as a string, using language/platform-native facilities.
 
 ```python
-import urllib2
+try:
+  import urllib.request as urllib2
+except:
+  import urllib2
+
 urllib2.urlopen("http://www.google.com/").read()
 ```
 
@@ -152,9 +163,11 @@ urllib2.urlopen("http://www.google.com/").read()
 ### Print out a file, along with line numbers.
 
 ```python
+from __future__ import print_function
+
 with open("/etc/passwd") as f:
   for n, line in enumerate(f):
-    print n, line.rstrip("\r\n")
+    print(n, line.rstrip("\r\n"))
 ```
 
 ```clojure
@@ -166,30 +179,36 @@ with open("/etc/passwd") as f:
 
 
 
-### Write a new file
+### Write a Unicode string to a new file
 
 ```python
-with open("deleteme-1", "wb") as f:
-  f.write("contents")
+import codecs
+
+with codecs.open("deleteme-1", "wb", encoding="utf-8") as f:
+  f.write(u"contents \ucccc")
 ```
 
 ```clojure
-(spit "deleteme-1" "contents")
+(spit "deleteme-1" "contents \ucccc" :encoding "utf-8")
 ```
 
 
 
-### Append a line to a file
+### Append a Unicode string to a file
 
 ```python
-with open("deleteme-2", "ab") as f:
-  f.write("another line\n")
+import codecs
+
+with codecs.open("deleteme-2", "ab", encoding="utf-8") as f:
+  f.write(u"another line \ucccc\n")
 ```
+
+Note that we use mode `"ab"` instead of `"a"` to avoid having Python replace our `\n`s with `\r\n`s on Windows.
 
 ```clojure
 (require '[clojure.java.io :refer [writer]])
-(with-open [wrtr (writer "deleteme-2" :append true)]
-  (.write wrtr "another line\n"))
+(with-open [wrtr (writer "deleteme-2" :encoding "UTF-8" :append true)]
+  (.write wrtr "another line \ucccc\n"))
 ```
 
 
@@ -228,10 +247,16 @@ json.loads('[{"a": 10.1, "b": [true, false, null]}, 1]')
 ### Encode some data to JSON and write it to a file
 
 ```python
+import codecs
 import json
-with open("/tmp/json", "wb") as f:
-  json.dump([{"a": 10.1, "b</script>": [True, False, None]}, 1], f)
+
+with codecs.open("/tmp/json", "wb", encoding="utf-8") as f:
+  json.dump([{u"a \ucccc": 10.1, u"b</script>": [True, False, None]}, 1], f)
 ```
+
+Python writes `[{"b</script>": [true, false, null], "a \ucccc": 10.1}, 1]`
+
+(whitespace, no forward slash escaping, Unicode as \u escapes)
 
 with [data.json](https://github.com/clojure/data.json):
 
@@ -241,9 +266,12 @@ with [data.json](https://github.com/clojure/data.json):
 (require '[clojure.java.io :refer [writer]])
 (require '[clojure.data.json :as json])
 (with-open [wrtr (writer "/tmp/json")]
-  (json/write [{"a" 10.1 "b</script>" [true false nil]} 1] wrtr))
-; unlike Python, escapes forward slash by default; also emits no whitespace
+  (json/write [{"a \ucccc" 10.1 "b</script>" [true false nil]} 1] wrtr))
 ```
+
+data.json writes `[{"a \ucccc":10.1,"b<\/script>":[true,false,null]},1]`
+
+(no whitespace, yes forward slash escaping, Unicode as \u escapes)
 
 with [cheshire](https://github.com/dakrone/cheshire):
 
@@ -253,9 +281,13 @@ with [cheshire](https://github.com/dakrone/cheshire):
 (require '[clojure.java.io :refer [writer]])
 (require '[cheshire.core :as cheshire])
 (with-open [wrtr (writer "/tmp/json")]
-  (cheshire/generate-stream [{"a" 10.1 "b</script>" [true false nil]} 1] wrtr))
+  (cheshire/generate-stream [{"a \ucccc" 10.1 "b</script>" [true false nil]} 1] wrtr))
 ; like Python, does not escape forward slash by default; unlike Python, emits no whitespace
 ```
+
+cheshire writes `[{"a 쳌":10.1,"b</script>":[true,false,null]},1]`
+
+(no whitespace, no forward slash escaping, Unicode as UTF-8)
 
 <!--
 https://github.com/mmcgrana/clj-json/
@@ -268,9 +300,11 @@ https://github.com/michalmarczyk/clj-lazy-json
 
 ```python
 import json
-with open("/tmp/json", "rb") as f:
+with open("/tmp/json", "r") as f:
   json.load(f)
 ```
+
+Python 2 `json.load` assumes utf-8 encoding; Python 3 `open` assumes utf-8 encoding and `json.load` parses Unicode.
 
 with data.json:
 
@@ -298,11 +332,13 @@ with cheshire:
 
 ### Write some EDN to a file
 
+The Python version requires https://github.com/swaroopch/edn_format.
+
 ```python
-# https://github.com/swaroopch/edn_format
+import codecs
 import edn_format
 
-with open("/tmp/edn", "wb") as f:
+with codecs.open("/tmp/edn", "wb", encoding="utf-8") as f:
   obj = {"string-key": [3, 4], edn_format.Keyword("keyword-key"): {1, 2, 3}}
   f.write(edn_format.dumps(obj))
 ```
@@ -318,16 +354,20 @@ with open("/tmp/edn", "wb") as f:
 
 ### Parse some EDN in a file and get a keyword key
 
+The Python version requires https://github.com/swaroopch/edn_format.
+
 ```python
-# https://github.com/swaroopch/edn_format
+from __future__ import print_function
+
 import edn_format
 
-with open("/tmp/edn", "rb") as f:
-  # Note: edn_format cannot read EDN where a key is a map or set or vector
-  # Use https://github.com/dreid/edn in the future
+with open("/tmp/edn", "r") as f:
+  # Note: edn_format cannot read EDN where a key is a vector
+  # Maybe use https://github.com/dreid/edn in the future
   obj = edn_format.loads(f.read())
-  print obj
-  print obj[edn_format.Keyword("keyword-key")]
+  print(obj)
+  # prints {Keyword(keyword-key): frozenset([1, 2, 3]), 'string-key': [3, 4]}
+  print(obj[edn_format.Keyword("keyword-key")])
 ```
 
 ```clojure
@@ -346,6 +386,7 @@ with open("/tmp/edn", "rb") as f:
 ```python
 #!/usr/bin/python
 
+from __future__ import print_function
 import sys
 
 s = set()
@@ -354,7 +395,7 @@ for line in sys.stdin:
   s.add(line.rstrip("\r\n"))
 
 for item in s:
-  print item
+  print(item)
 ```
 
 ```clojure
@@ -527,7 +568,7 @@ new_record = record.copy()
 new_record["name"]["last"] = "Dotcom"
 new_record["age"] += 1
 del new_record["secret"]
-print new_record
+new_record
 ```
 
 ```clojure
@@ -536,7 +577,7 @@ print new_record
                      (assoc-in [:name :last] "Dotcom")
                      (dissoc :secret)
                      (update-in [:age] inc))]
-  (prn new-record))
+  new-record)
 ```
 
 
@@ -583,6 +624,8 @@ set([1, 2, 3, 4]) | set([2, 3, 10])
 ### Get milliseconds since epoch
 
 ```python
+import time
+
 time.time() * 1000
 # returns a float
 ```
@@ -618,8 +661,8 @@ subprocess.check_output(["ls", "-l"])
 ```python
 import hashlib
 
-hashlib.sha1("hello world").digest()
-hashlib.sha1("hello world").hexdigest()
+hashlib.sha1(b"hello world").digest()
+hashlib.sha1(b"hello world").hexdigest()
 
 hashlib.sha1(u"hello world \ucccc".encode("utf-8")).digest()
 hashlib.sha1(u"hello world \ucccc".encode("utf-8")).hexdigest()
