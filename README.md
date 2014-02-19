@@ -618,6 +618,32 @@ set([1, 2, 3, 4]) | set([2, 3, 10])
 
 
 
+### Get the sum of each row in a matrix
+
+```python
+map(sum, [[1, 2, 3], [3, 4, 5]])
+```
+
+```clojure
+(mapv (partial reduce +) [[1 2 3] [3 4 5]])
+```
+
+
+
+### Get the sum of each column in a matrix
+
+```python
+list(map(sum, zip(*[[1, 1], [2, 2], [3, 5]])))
+```
+
+```clojure
+(mapv (partial reduce +) (apply map list [[1 1] [2 2] [3 5]]))
+```
+
+This works because Clojure's `map` passes one argument for every sequence into the fn; try `(map vector [1 2] [3 4])` or `(map + [1 2] [3 4])`
+
+
+
 ### Get milliseconds since epoch
 
 ```python
@@ -754,6 +780,18 @@ with open("/etc/passwd", "rb") as f:
 (hexify (.digest (sha1-for-file (as-file "/etc/passwd"))))
 ```
 
+
+
+### Print names of everything in a module (Python) or namespace (Clojure)
+
+```python
+>>> import os
+>>> dir(os)
+```
+
+```clojure
+(keys (ns-map 'clojure.core))
+```
 
 
 
