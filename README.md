@@ -621,7 +621,7 @@ set([1, 2, 3, 4]) | set([2, 3, 10])
 ### Get the sum of each row in a matrix
 
 ```python
-map(sum, [[1, 2, 3], [3, 4, 5]])
+list(map(sum, [[1, 2, 3], [3, 4, 5]]))
 ```
 
 ```clojure
