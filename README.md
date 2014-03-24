@@ -26,7 +26,7 @@ On Windows, install Python 2.7 or 3.3; start cmd; run "C:\Python27\python" or "C
 
 #### Clojure
 
-On all platforms, install [leiningen](http://leiningen.org/)
+On all platforms, install [leiningen](http://leiningen.org/), then
 ```
 ~/bin/lein new dummyproj
 cd dummyproj
@@ -785,8 +785,8 @@ with open("/etc/passwd", "rb") as f:
 ### Print names of everything in a module (Python) or namespace (Clojure)
 
 ```python
->>> import os
->>> dir(os)
+import os
+dir(os)
 ```
 
 ```clojure
