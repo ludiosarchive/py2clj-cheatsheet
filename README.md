@@ -824,9 +824,9 @@ import os
 dir(os)
 ```
 
-```clojure
+<pre class="clojureblock">
 (keys (ns-map 'clojure.core))
-```{.clojureblock}
+</pre>
 
 
 
