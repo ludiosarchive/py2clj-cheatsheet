@@ -810,6 +810,12 @@ with open("/etc/passwd", "rb") as f:
 ```
 
 
+<style>
+.clojureblock {
+  background-color: red !important;
+}
+</style>
+
 
 ### Print names of everything in a module (Python) or namespace (Clojure)
 
@@ -820,7 +826,7 @@ dir(os)
 
 ```clojure
 (keys (ns-map 'clojure.core))
-```
+```{.clojureblock}
 
 
 
