@@ -502,20 +502,20 @@ list(s.lower() for s in ["Mixed", "CASE"])
 
 ```python
 "hello  world test  ".split(" ")
-# returns ['hello', '', 'world', 'test', '', '']
+#= ['hello', '', 'world', 'test', '', '']
 
 "hello  world test  ".split()   
-# returns ['hello', 'world', 'test']
+#= ['hello', 'world', 'test']
 ```
 
 ```clojure
 (require '[clojure.string :as str])
 
 (str/split "hello  world test  " #" ")
-; returns ["hello" "" "world" "test"]
+;= ["hello" "" "world" "test"]
 
 (str/split "hello  world test  " #" +")
-; returns ["hello" "world" "test"]
+;= ["hello" "world" "test"]
 ```
 
 
@@ -657,6 +657,35 @@ time.time() * 1000
 (System/currentTimeMillis)
 ; returns a Long
 ```
+
+
+### Get an ISO 8601 representation of the date and time
+
+```python
+import pytz
+from datetime import datetime
+
+datetime.now(pytz.utc).isoformat()
+#= '2014-03-27T01:20:15.065206+00:00'
+```
+
+(Requires [pytz](https://pypi.python.org/pypi/pytz); `sudo apt-get install python-tz python3-tz`.)
+
+Or, if you absolutely cannot install pytz:
+
+```python
+from datetime import datetime
+
+datetime.utcnow().isoformat() + "Z"
+#= '2014-03-27T01:20:15.065206Z'
+```
+
+```clojure
+(.toString (java.time.Instant/now))
+;= "2014-03-27T01:32:13.032Z"
+```
+
+(Java 8+ is required.)
 
 
 
