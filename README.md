@@ -685,7 +685,7 @@ datetime.utcnow().isoformat() + "Z"
 ;= "2014-03-27T01:32:13.032Z"
 ```
 
-(Java 8+ is required.)
+(Requires Java 8+.)
 
 
 
