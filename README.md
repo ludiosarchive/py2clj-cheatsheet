@@ -827,6 +827,31 @@ dir(os)
 ## Other Clojure/Leiningen tips
 
 
+### Set up (refresh) to reload code and (rt) to run tests in REPL
+
+Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.clj`:
+
+```
+(defproject myproject "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/tools.namespace "0.2.4"]]
+  :repl-options {:init (do
+                         (require '[clojure.tools.namespace.repl :refer [refresh]])
+                         (require '[clojure.test])
+                         (defn rt []
+                           (refresh)
+                           (clojure.test/test-ns 'myproject.core-test)))
+                })
+```
+
+Adjust the `(clojure.test/test-ns ...)` line to include the correct namespace.
+
+Then, `lein repl` and `(refresh)` or `(rt)` in your REPL.
+
+See the [tools.namespace README](https://github.com/clojure/tools.namespace) for information on how it works.
+
+
+
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time
 
 Add this to your `project.clj`:
