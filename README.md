@@ -827,11 +827,11 @@ dir(os)
 ## Other Clojure/Leiningen tips
 
 
-### Set up (refresh) to reload code and (rt) to run tests in REPL
+### Set up `(refresh)` to reload code and `(rt)` to run tests in REPL
 
 Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.clj`:
 
-```
+```clojure
 (defproject myproject "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/tools.namespace "0.2.4"]]
