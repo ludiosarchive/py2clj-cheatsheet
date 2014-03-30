@@ -861,7 +861,7 @@ If you see this error, you may have passed in the wrong number of arguments to t
 
 
 
-### I've passed in the right number of arguments but it still says "IllegalArgumentException No matching method", or I get a strange ClassCastException!
+### I've passed in the right number of arguments but it still says "IllegalArgumentException No matching method", or I get a strange ClassCastException.
 
 This can happen if you're calling a Java varargs method.  Varargs methods actually take an array, not a variable number of arguments.  The Java compiler automatically creates these argument arrays for you, but Clojure does not.
 
