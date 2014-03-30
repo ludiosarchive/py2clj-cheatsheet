@@ -1048,3 +1048,15 @@ Start a Clojure REPL as usual with `lein repl`, then run
 ```clojure
 (cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/repl-env))
 ```
+
+
+
+## Other documentation
+
+[The Joy of Clojure](http://joyofclojure.com/) is an excellent book that will teach you to write idiomatic Clojure.
+
+[clojure-doc.org](http://clojure-doc.org/) covers the language essentials.
+
+[Rich Hickey's talks](http://thechangelog.com/rich-hickeys-greatest-hits/), [more videos on this list](http://alexott.net/en/clojure/video.html), and [even more on YouTube](https://www.youtube.com/user/ClojureTV/videos?flow=list&live_view=500&sort=dd&view=0).
+
+clojure.org has a [cheatsheet](http://clojure.org/cheatsheet) covering core functions and [detailed implementation information](http://clojure.org/documentation).
