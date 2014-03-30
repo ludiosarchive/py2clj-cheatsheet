@@ -852,7 +852,7 @@ dir(os)
 ### Evaluate a private object
 
 ```clojure
-(@#'other.namespace/obj)
+@#'other.namespace/obj
 ```
 
 (Get the var and deref it.)
