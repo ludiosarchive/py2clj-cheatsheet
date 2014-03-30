@@ -708,6 +708,18 @@ subprocess.check_output(["ls", "-l"])
 
 
 
+### Convert a unicode string to bytes
+
+```py
+u"hello".encode("utf-8")
+```
+
+```clj
+(.getBytes "hello" "UTF-8")
+```
+
+
+
 ### Get a SHA1 digest or hex digest for a string
 
 ```python
