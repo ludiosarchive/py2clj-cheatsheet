@@ -865,7 +865,7 @@ If you see this error, you may have passed in the wrong number of arguments to t
 
 This can happen if you're calling a Java varargs method.  Varargs methods actually take an array, not a variable number of arguments.  The Java compiler automatically creates these argument arrays for you, but Clojure does not.
 
-For example, in Clojure, instead of the INCORRECT
+For example, in Clojure, instead of the **incorrect**
 
 ```clojure
 (.getPath (java.nio.file.FileSystems/getDefault) "/etc" "passwd")
