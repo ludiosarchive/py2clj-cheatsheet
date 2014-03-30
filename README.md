@@ -824,7 +824,48 @@ dir(os)
 
 
 
-## Other Clojure/Leiningen tips
+## Other Clojure tips
+
+
+### Call a private function
+
+```
+(#'other.namespace/fun)
+```
+
+(Get the var and call it, which calls the function.)
+
+
+
+### Evaluate a private object
+
+```
+(@#'other.namespace/obj)
+```
+
+(Get the var and deref it.)
+
+
+
+### Comment out the next form
+
+```
+[1 2 #_ 3 4 5]
+;= [1 2 4 5]
+```
+
+
+
+### Comment out the next two forms
+
+```
+{"a" 1 #_ #_ "b" 2 "c" 3}
+;= {"a" 1, "c" 3}
+```
+
+
+
+## Leiningen tips
 
 
 ### Set up `(refresh)` to reload code and `(rt)` to run tests in REPL
@@ -880,6 +921,9 @@ Add this to your `project.clj`:
 :repl-options {:history-file nil}
 ```
 
+
+
+## ClojureScript tips
 
 
 ### Get a ClojureScript REPL managed by austin
