@@ -829,7 +829,7 @@ dir(os)
 
 ### Call a private function
 
-```
+```clojure
 (#'other.namespace/fun)
 ```
 
@@ -839,7 +839,7 @@ dir(os)
 
 ### Evaluate a private object
 
-```
+```clojure
 (@#'other.namespace/obj)
 ```
 
@@ -849,7 +849,7 @@ dir(os)
 
 ### Comment out the next form
 
-```
+```clojure
 [1 2 #_ 3 4 5]
 ;= [1 2 4 5]
 ```
@@ -858,7 +858,7 @@ dir(os)
 
 ### Comment out the next two forms
 
-```
+```clojure
 {"a" 1 #_ #_ "b" 2 "c" 3}
 ;= {"a" 1, "c" 3}
 ```
