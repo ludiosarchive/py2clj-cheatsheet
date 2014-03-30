@@ -850,7 +850,35 @@ dir(os)
 
 
 
+### Get the value of the last evaluation in the REPL
+
+Python:
+
+```python
+_
+```
+
+Clojure:
+
+```clojure
+*1
+```
+
+(Clojure also supports `*2* and `*3` to get even older evaluations.)
+
+
+
 ## Other Clojure tips
+
+
+### Get a traceback for the last exception thrown in the REPL
+
+```clojure
+(pst)
+```
+
+(**p**rint **s**tack **trace)
+
 
 
 ### Clojure says "IllegalArgumentException: No matching method" but the method exists!
