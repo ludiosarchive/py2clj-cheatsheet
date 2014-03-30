@@ -905,6 +905,8 @@ you must call
 (.getPath (java.nio.file.FileSystems/getDefault) "/etc" (into-array String ["passwd"]))
 ```
 
+You must pass an array even if you call with 0 varargs.  See [CLJ-440](http://dev.clojure.org/jira/browse/CLJ-440).
+
 
 
 ### Call a private function
