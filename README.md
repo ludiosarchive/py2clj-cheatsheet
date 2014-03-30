@@ -864,7 +864,7 @@ Clojure:
 *1
 ```
 
-(Clojure also supports `*2*` and `*3` to get even older evaluations.)
+(Clojure also supports `*2` and `*3` to get even older evaluations.)
 
 
 
