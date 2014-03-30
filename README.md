@@ -711,12 +711,26 @@ subprocess.check_output(["ls", "-l"])
 ### Convert a unicode string to bytes
 
 ```py
-u"hello".encode("utf-8")
+u"hello \ucccc".encode("utf-8")
 ```
 
 ```clj
-(.getBytes "hello" "UTF-8")
+(.getBytes "hello \ucccc" "UTF-8")
 ```
+
+
+
+### Convert bytes to a unicode string
+
+```py
+b"hello \xec\xb3\x8c".decode("utf-8")
+```
+
+```clj
+(String. (.getBytes "hello \ucccc" "UTF-8") "UTF-8")
+```
+
+(Clojure has no bytes literal, so we call `.getBytes` to make a `byte[]` first.)
 
 
 
