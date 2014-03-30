@@ -853,6 +853,14 @@ dir(os)
 ## Other Clojure tips
 
 
+### Clojure says "IllegalArgumentException: No matching method" but the method exists!
+
+Unlike Python, a Java class can have multiple methods of the same name, as long as the method signature is different.  Java dispatches to the correct method at compile time.
+
+If you see this error, you may have passed in the wrong number of arguments to the method.
+
+
+
 ### Call a private function
 
 ```clojure
