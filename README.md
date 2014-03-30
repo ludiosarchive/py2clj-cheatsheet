@@ -891,6 +891,13 @@ Then, `lein repl` and `(refresh)` or `(rt)` in your REPL.
 
 See the [tools.namespace README](https://github.com/clojure/tools.namespace) for information on how it works.
 
+Using a network drive and `(refresh)` or `(rt)` not loading updated code?  Make sure the local and remote machine clocks are in sync.  `tools.namespace` uses
+
+```clojure
+(defn- modified-files [tracker files]
+  (filter #(< (::time tracker 0) (.lastModified ^File %)) files))
+```
+
 
 
 ### Make `lein repl`, `lein run`, and other project commands run at full JVM performance; not optimized for startup time
