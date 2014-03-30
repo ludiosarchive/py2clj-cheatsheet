@@ -877,7 +877,7 @@ Clojure:
 (pst)
 ```
 
-(**p**rint **s**tack **trace)
+(<b>p</b>rint <b>s</b>tack <b>t</b>race)
 
 
 
