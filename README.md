@@ -1049,6 +1049,8 @@ Start a Clojure REPL as usual with `lein repl`, then run
 (cemerick.piggieback/cljs-repl :repl-env (cemerick.austin/repl-env))
 ```
 
+The output will include a `Browser-REPL ready @ URL` line.  Open that URL in your browser.  It will be blank, as it serves only as an engine for Austin.  Switch back to your terminal and enter ClojureScript code there.
+
 
 
 ## Other documentation
