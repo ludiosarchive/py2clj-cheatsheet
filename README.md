@@ -958,7 +958,7 @@ Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.
 (defproject myproject "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/tools.namespace "0.2.4"]]
-  :repl-options {:init (do
+  :repl-options {:init (do ; yes, the :init code really must not be quoted
                          (require '[clojure.tools.namespace.repl :refer [refresh]])
                          (require '[clojure.test])
                          (defn rt []
