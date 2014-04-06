@@ -244,6 +244,8 @@ json.loads('[{"a": 10.1, "b": [true, false, null]}, 1]')
 
 ### Encode some data to JSON and write it to a file
 
+Python with default `json.dump`:
+
 ```python
 import codecs
 import json
@@ -256,7 +258,23 @@ Python writes `[{"b</script>": [true, false, null], "a \ucccc": 10.1}, 1]`
 
 (whitespace, no forward slash escaping, Unicode as \u escapes)
 
-with [data.json](https://github.com/clojure/data.json):
+
+Python with `json.dump` and `ensure_ascii=False`:
+
+```python
+import codecs
+import json
+
+with codecs.open("/tmp/json", "wb", encoding="utf-8") as f:
+  json.dump([{u"a \ucccc": 10.1, u"b</script>": [True, False, None]}, 1], f, ensure_ascii=False)
+```
+
+Python writes `[{"b</script>": [true, false, null], "a 쳌": 10.1}, 1]`
+
+(whitespace, no forward slash escaping, Unicode as UTF-8)
+
+
+Clojure with [data.json](https://github.com/clojure/data.json):
 
 ```clojure
 ; with [org.clojure/data.json "0.2.4"] in :dependencies in your project.clj
@@ -271,7 +289,8 @@ data.json writes `[{"a \ucccc":10.1,"b<\/script>":[true,false,null]},1]`
 
 (no whitespace, yes forward slash escaping, Unicode as \u escapes)
 
-with [cheshire](https://github.com/dakrone/cheshire):
+
+Clojure with [cheshire](https://github.com/dakrone/cheshire):
 
 ```clojure
 ; with [cheshire "5.3.1"] in :dependencies in your project.clj
