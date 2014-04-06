@@ -1024,7 +1024,7 @@ sudo apt-get install phantomjs
 Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
 
 ```clojure
-{:user {:plugins [[com.cemerick/austin "0.1.3"]]}}
+{:user {:plugins [[com.cemerick/austin "0.1.4"]]}}
 ```
 
 Start a Clojure REPL as usual with `lein repl`, then run
