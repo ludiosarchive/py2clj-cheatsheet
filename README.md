@@ -254,7 +254,7 @@ with codecs.open("/tmp/json", "wb", encoding="utf-8") as f:
   json.dump([{u"a \ucccc": 10.1, u"b</script>": [True, False, None]}, 1], f)
 ```
 
-Python writes `[{"b</script>": [true, false, null], "a \ucccc": 10.1}, 1]`
+The file output is `[{"b</script>": [true, false, null], "a \ucccc": 10.1}, 1]`
 
 (whitespace, no forward slash escaping, Unicode as \u escapes)
 
@@ -269,7 +269,7 @@ with codecs.open("/tmp/json", "wb", encoding="utf-8") as f:
   json.dump([{u"a \ucccc": 10.1, u"b</script>": [True, False, None]}, 1], f, ensure_ascii=False)
 ```
 
-Python writes `[{"b</script>": [true, false, null], "a 쳌": 10.1}, 1]`
+The file output is `[{"b</script>": [true, false, null], "a 쳌": 10.1}, 1]`
 
 (whitespace, no forward slash escaping, Unicode as UTF-8)
 
