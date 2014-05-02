@@ -299,7 +299,6 @@ Clojure with [cheshire](https://github.com/dakrone/cheshire):
 (require '[cheshire.core :as cheshire])
 (with-open [wrtr (writer "/tmp/json")]
   (cheshire/generate-stream [{"a \ucccc" 10.1 "b</script>" [true false nil]} 1] wrtr))
-; like Python, does not escape forward slash by default; unlike Python, emits no whitespace
 ```
 
 cheshire writes `[{"a 쳌":10.1,"b</script>":[true,false,null]},1]`
