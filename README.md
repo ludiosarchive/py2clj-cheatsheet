@@ -1033,17 +1033,19 @@ Add this to your `project.clj`:
 ## ClojureScript tips
 
 
-### Get a ClojureScript REPL managed by austin
+### Get a ClojureScript REPL powered by phantomjs
 
 ```
 sudo apt-get install phantomjs
 ```
 
-Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
+Add [austin](https://github.com/cemerick/austin) to the `:plugins` vector in your `project.clj`, adding a `:plugins` key if necessary:
 
 ```clojure
-{:user {:plugins [[com.cemerick/austin "0.1.4"]]}}
+:plugins [[com.cemerick/austin "0.1.4"]]
 ```
+
+(Don't add it to your `~/.lein/profiles.clj`, because you don't want to slow down startup for all projects.)
 
 Start a Clojure REPL as usual with `lein repl`, then run
 
@@ -1055,11 +1057,13 @@ Start a Clojure REPL as usual with `lein repl`, then run
 
 ### Get a ClojureScript REPL powered by your browser
 
-Add [austin](https://github.com/cemerick/austin) to your `~/.lein/profiles.clj` like so:
+Add [austin](https://github.com/cemerick/austin) to the `:plugins` vector in your `project.clj`, adding a `:plugins` key if necessary:
 
 ```clojure
-{:user {:plugins [[com.cemerick/austin "0.1.4"]]}}
+:plugins [[com.cemerick/austin "0.1.4"]]
 ```
+
+(Don't add it to your `~/.lein/profiles.clj`, because you don't want to slow down startup for all projects.)
 
 Start a Clojure REPL as usual with `lein repl`, then run
 
