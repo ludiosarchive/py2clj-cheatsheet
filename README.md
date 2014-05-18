@@ -1039,6 +1039,8 @@ Add this to your `project.clj`:
 sudo apt-get install phantomjs
 ```
 
+Make sure you have ClojureScript in the `:dependencies` vector in your `project.clj`; e.g. `[org.clojure/clojurescript "0.0-2202"]` ([the latest version is listed here](http://search.maven.org/#search|ga|1|clojurescript)).
+
 Add [austin](https://github.com/cemerick/austin) to the `:plugins` vector in your `project.clj`, adding a `:plugins` key if necessary:
 
 ```clojure
@@ -1056,6 +1058,8 @@ Start a Clojure REPL as usual with `lein repl`, then run
 
 
 ### Get a ClojureScript REPL powered by your browser
+
+Make sure you have ClojureScript in the `:dependencies` vector in your `project.clj`; e.g. `[org.clojure/clojurescript "0.0-2202"]` ([the latest version is listed here](http://search.maven.org/#search|ga|1|clojurescript)).
 
 Add [austin](https://github.com/cemerick/austin) to the `:plugins` vector in your `project.clj`, adding a `:plugins` key if necessary:
 
