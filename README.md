@@ -21,7 +21,7 @@ If this is missing some common task, please file an issue.
 
 On Linux or OS X, run "python" in a terminal.
 
-On Windows, install Python 2.7 or 3.3; start cmd; run "C:\Python27\python" or "C:\Python33\python"
+On Windows, install Python 2.7 or 3.4; start cmd; run "C:\Python27\python" or "C:\Python34\python"
 
 
 #### Clojure
