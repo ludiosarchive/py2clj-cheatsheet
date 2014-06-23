@@ -968,7 +968,9 @@ You must pass an array even if you call with 0 varargs.  See [CLJ-440](http://de
 ## Leiningen tips
 
 
-### Set up `(refresh)` to reload code and `(rt)` to run tests in REPL
+### Set up `(r)` to reload code and `(t)` to run tests in REPL
+
+This sets up an `(r)` that calls `tools.namespace`'s `(refresh)` but also [reloads aliased namespaces](https://groups.google.com/forum/#!msg/clojure/dsfmYU4YMSM/Gq3uo9tI748J), and a `(t)` that calls `(r)` and runs your tests.
 
 Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.clj`:
 
@@ -976,22 +978,35 @@ Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.
 (defproject myproject "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/tools.namespace "0.2.4"]]
-  :repl-options {:init (do ; yes, the :init code really must not be quoted
+  :repl-options {:init (do
+                         (require '[myproject.core :as m]) ; convenience
                          (require '[clojure.tools.namespace.repl :refer [refresh]])
                          (require '[clojure.test])
-                         (defn rt []
-                           (refresh)
-                           (clojure.test/test-ns 'myproject.core-test)))
+
+                         (defn r []
+                           (let [ret (refresh)]
+                             ; https://github.com/clojure/tools.namespace#warnings-for-aliases
+                             (doseq [[sym target-ns] (ns-aliases 'user)]
+                               (ns-unalias 'user sym)
+                               ; (the-ns (ns-name ...)) to get the post-refresh namespace object
+                               (.addAlias (the-ns 'user) sym (the-ns (ns-name target-ns))))
+                             ret))
+
+                         (defn t []
+                           (let [ret (r)]
+                             (if (not= ret :ok)
+                               ret
+                               (clojure.test/test-ns 'myproject.core-test)))))
                 })
 ```
 
-Adjust the `(clojure.test/test-ns ...)` line to include the correct namespace.
+Adjust the `(require '[myproject.core :as m])` and `(clojure.test/test-ns ...)` lines to the correct namespace.
 
-Then, `lein repl` and `(refresh)` or `(rt)` in your REPL.
+Then, `lein repl` and `(r)` or `(t)` in your REPL.
 
 See the [tools.namespace README](https://github.com/clojure/tools.namespace) for information on how it works.
 
-Running code from a network drive and `(refresh)` or `(rt)` not loading updated code?  Make sure the local and remote machine clocks are in sync.  `tools.namespace` uses
+Running code from a network drive and `(refresh)` or `(r)` or `(t)` not loading updated code?  Make sure the local and remote machine clocks are in sync.  `tools.namespace` uses
 
 ```clojure
 (defn- modified-files [tracker files]
