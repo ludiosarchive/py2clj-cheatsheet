@@ -984,18 +984,18 @@ Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.
                          (require '[clojure.test])
 
                          (defn r []
-                           (let [ret (refresh)]
+                           (let [result (refresh)]
                              ; https://github.com/clojure/tools.namespace#warnings-for-aliases
                              (doseq [[sym target-ns] (ns-aliases 'user)]
                                (ns-unalias 'user sym)
                                ; (the-ns (ns-name ...)) to get the post-refresh namespace object
                                (.addAlias (the-ns 'user) sym (the-ns (ns-name target-ns))))
-                             ret))
+                             result))
 
                          (defn t []
-                           (let [ret (r)]
-                             (if (not= ret :ok)
-                               ret
+                           (let [result (r)]
+                             (if (not= result :ok)
+                               result
                                (clojure.test/test-ns 'myproject.core-test)))))
                 })
 ```
