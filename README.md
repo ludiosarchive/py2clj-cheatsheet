@@ -1049,7 +1049,7 @@ Add this to your `project.clj`:
 
 `lein repl` starts an nREPL server that anyone on your machine can connect to, including untrusted software running in other user accounts.  This is a problem even on single-user machines.
 
-nREPL does not provide any way to require authorization, but you avoid using nREPL and just use the underlying REPL library that `lein repl` uses: [REPL-y](https://github.com/trptcolin/reply).
+nREPL does not provide any way to require authorization, but you can avoid using nREPL and just use the underlying REPL library that `lein repl` uses: [REPL-y](https://github.com/trptcolin/reply).
 
 First, add `[reply "0.3.1"]` your `:dependencies` and move your `:repl-options :init` code to `init.clj`:
 
