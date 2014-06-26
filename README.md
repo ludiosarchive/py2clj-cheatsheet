@@ -1045,6 +1045,43 @@ Add this to your `project.clj`:
 
 
 
+### Start a REPL without creating a local security hole
+
+`lein repl` starts an nREPL server that anyone on your machine can connect to, including untrusted software running in other user accounts.  This is a problem even on single-user machines.
+
+nREPL does not provide any way to require authorization, but you avoid using nREPL and just use the underlying REPL library that `lein repl` uses: [REPL-y](https://github.com/trptcolin/reply).
+
+First, add `[reply "0.3.1"]` your `:dependencies` and move your `:repl-options :init` code to `init.clj`:
+
+```
+(defproject myproject "0.1.0-SNAPSHOT"
+  :source-paths ["src" "test"]
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [org.clojure/tools.namespace "0.2.4"]
+                 [reply "0.3.1"]]
+  :repl-options {; Must use (do ...) block to avoid breaking with plugins
+                 :init (do (load-file "init.clj"))
+                 })
+```
+
+Then, create an executable script called `repl` with these contents:
+
+```
+#!/bin/bash
+
+set -e
+
+cd "$(dirname "${BASH_SOURCE[0]}")"
+# --standalone is required to avoid starting an nREPL listener
+java -Dfile.encoding=UTF-8 -cp "$(lein classpath)" reply.ReplyMain --standalone -e '(load-file "init.clj")'
+```
+
+`./repl` will start a REPL *without* starting an nREPL listener.
+
+Other approaches to solving this problem (though they did not work well for me) include [nreplds](https://github.com/monsanto/nreplds), [ssh-repl](https://github.com/mtnygard/ssh-repl), and using `iptables -A OUTPUT -m owner` to reject local outbound connections.
+
+
+
 ## ClojureScript tips
 
 
