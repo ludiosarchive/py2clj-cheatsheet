@@ -1053,7 +1053,7 @@ nREPL does not provide any way to require authorization, but you avoid using nRE
 
 First, add `[reply "0.3.1"]` your `:dependencies` and move your `:repl-options :init` code to `init.clj`:
 
-```
+```clojure
 (defproject myproject "0.1.0-SNAPSHOT"
   :source-paths ["src" "test"]
   :dependencies [[org.clojure/clojure "1.6.0"]
@@ -1066,7 +1066,7 @@ First, add `[reply "0.3.1"]` your `:dependencies` and move your `:repl-options :
 
 Then, create an executable script called `repl` with these contents:
 
-```
+```bash
 #!/bin/bash
 
 set -e
