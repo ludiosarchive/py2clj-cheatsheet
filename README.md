@@ -1076,7 +1076,7 @@ Then, create an executable script called `repl` with these contents:
 set -e
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-# --standalone is required to avoid starting an nREPL listener
+# --standalone is **required** to avoid starting an nREPL listener
 java -Dfile.encoding=UTF-8 -cp "$(lein classpath)" reply.ReplyMain --standalone -e '(load-file "init.clj")'
 ```
 
