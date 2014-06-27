@@ -1078,6 +1078,31 @@ java -Dfile.encoding=UTF-8 -cp "$(lein classpath)" reply.ReplyMain --standalone 
 
 `./repl` will start a REPL *without* starting an nREPL listener.
 
+If you want to save a few seconds per REPL launch, you can use a more complicated `repl` that uses a cached classpath when `project.clj` is unchanged:
+
+```bash
+#!/bin/bash
+
+set -e
+
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+mkdir -p .lein-cp-cache
+# md5sum on Linux, md5 on OS X
+PROJECT_CLJ_CHECKSUM="$(cat project.clj | (md5sum 2> /dev/null || md5) | cut -f 1 -d " ")"
+# Use the cached classpath if one exists, else calculate the classpath
+# and cache it.  This saves ~2 seconds per REPL launch.
+if [ -f ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM" ]; then
+  REPLY_CP="$(cat ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM")"
+else
+  REPLY_CP="$(lein classpath)"
+  echo "$REPLY_CP" > .lein-cp-cache/$PROJECT_CLJ_CHECKSUM
+fi
+
+# --standalone is **required** to avoid starting an nREPL listener
+java -Dfile.encoding=UTF-8 -cp "$REPLY_CP" reply.ReplyMain --standalone -e '(load-file "init.clj")'
+```
+
 Other approaches to solving this problem (though they did not work well for me) include [nreplds](https://github.com/monsanto/nreplds), [ssh-repl](https://github.com/mtnygard/ssh-repl), and using `iptables -A OUTPUT -m owner` to reject local outbound connections.
 
 
