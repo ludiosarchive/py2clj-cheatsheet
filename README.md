@@ -1051,6 +1051,8 @@ Add this to your `project.clj`:
 
 ### Start a REPL without creating a local security hole
 
+**Disclaimer: this doesn't really work until [reply #140](https://github.com/trptcolin/reply/issues/140) is fixed.**
+
 `lein repl` starts an nREPL server that anyone on your machine can connect to, including untrusted software running in other user accounts.  This is a problem even on single-human-user machines.
 
 nREPL does not provide any way to require authorization, but you can avoid using nREPL and just use the underlying REPL library that `lein repl` uses: [REPL-y](https://github.com/trptcolin/reply).
