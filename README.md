@@ -1095,7 +1095,7 @@ mkdir -p .lein-cp-cache
 # md5sum on Linux, md5 on OS X
 PROJECT_CLJ_CHECKSUM="$(cat project.clj | (md5sum 2> /dev/null || md5) | cut -f 1 -d " ")"
 # Use the cached classpath if one exists, else calculate the classpath
-# and cache it.  This saves ~2 seconds per REPL launch.
+# and cache it.  If it's already cached, we save ~2 seconds.
 if [ -f ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM" ]; then
   REPLY_CP="$(cat ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM")"
 else
