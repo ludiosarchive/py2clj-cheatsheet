@@ -1096,7 +1096,7 @@ if [ -f ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM" ]; then
   REPLY_CP="$(cat ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM")"
 else
   REPLY_CP="$(lein classpath)"
-  echo "$REPLY_CP" > .lein-cp-cache/$PROJECT_CLJ_CHECKSUM
+  echo "$REPLY_CP" > ".lein-cp-cache/$PROJECT_CLJ_CHECKSUM"
 fi
 
 # --standalone is **required** to avoid starting an nREPL listener
