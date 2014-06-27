@@ -983,7 +983,9 @@ Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.
                          (require '[clojure.tools.namespace.repl :refer [refresh]])
                          (require '[clojure.test])
 
-                         (defn r []
+                         (defn r
+                           "Refresh code and fix up aliases in the user namespace"
+                           []
                            (let [result (refresh)]
                              ; https://github.com/clojure/tools.namespace#warnings-for-aliases
                              (doseq [[sym target-ns] (ns-aliases 'user)]
@@ -992,7 +994,9 @@ Add a `tools.namespace` dependency and a `:repl-options :init` to your `project.
                                (.addAlias (the-ns 'user) sym (the-ns (ns-name target-ns))))
                              result))
 
-                         (defn t []
+                         (defn t
+                           "Refresh code and run tests"
+                           []
                            (let [result (r)]
                              (if (not= result :ok)
                                result
