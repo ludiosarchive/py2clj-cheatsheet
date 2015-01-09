@@ -13,7 +13,7 @@ The Clojure code here was tested with Clojure 1.6.0.
 ## Tasks
 
 
-### Getting a REPL started
+### Get a REPL started
 
 #### Python
 
