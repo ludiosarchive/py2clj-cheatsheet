@@ -9,8 +9,6 @@ The Python version always precedes the Clojure version.
 The Python code here is designed to work in both Python 2.7 and Python 3.3+.
 The Clojure code here was tested with Clojure 1.6.0.
 
-If this is missing some common task, please file an issue.
-
 
 ## Tasks
 
